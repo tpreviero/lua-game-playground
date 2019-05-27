@@ -9,11 +9,12 @@ local _M = {
 
 function _M.create(coordinates)
     local wall = {
+        type = "wall",
         color = _M.color,
         coordinates = coordinates,
     }
 
-    return movable.makeMovable(wall)
+    return movable.makeMovable(wall, true)
 end
 
 return _M

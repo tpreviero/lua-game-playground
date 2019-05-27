@@ -10,9 +10,7 @@ local _M = {
         function binder.dispatch(key)
             local action = objectBind[key]
             if action ~= nil then
-                if game.isValid(action[1], action[2]) then
-                    action[1].coordinates = action[1][action[2]](action[1])
-                end
+                game:move(action[1], action[2])
             end
         end
         return binder

@@ -2,7 +2,7 @@ local config = require("config")
 
 local _M = {}
 
-function _M.makeMovable(object)
+function _M.makeMovable(object, pushable)
     function object.up(self)
         return {
             x = self.coordinates.x,
@@ -29,6 +29,10 @@ function _M.makeMovable(object)
             x = self.coordinates.x + config.step,
             y = self.coordinates.y,
         }
+    end
+
+    function object.isPushable(self)
+        return pushable
     end
 
     return object

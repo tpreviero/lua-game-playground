@@ -1,3 +1,6 @@
+local movable = require("model.objects.movable")
+local config = require("config")
+
 local _M = {
     color = {
         math.random(), math.random(), math.random()
@@ -7,6 +10,7 @@ local _M = {
 
 function _M.create(coordinates)
     local monster = {
+        type = "monster",
         color = _M.color,
         coordinates = coordinates or {
             x = 0,
@@ -14,20 +18,34 @@ function _M.create(coordinates)
         },
     }
 
-    function monster.up()
-        monster.coordinates.y = monster.coordinates.y - _M.step
+    movable.makeMovable(monster, false)
+
+    function monster.up_right(self)
+        return {
+            x = self.coordinates.x + config.step,
+            y = self.coordinates.y - config.step,
+        }
     end
 
-    function monster.down()
-        monster.coordinates.y = monster.coordinates.y + _M.step
+    function monster.up_left(self)
+        return {
+            x = self.coordinates.x - config.step,
+            y = self.coordinates.y - config.step,
+        }
     end
 
-    function monster.left()
-        monster.coordinates.x = monster.coordinates.x - _M.step
+    function monster.down_right(self)
+        return {
+            x = self.coordinates.x + config.step,
+            y = self.coordinates.y + config.step,
+        }
     end
 
-    function monster.right()
-        monster.coordinates.x = monster.coordinates.x + _M.step
+    function monster.down_left(self)
+        return {
+            x = self.coordinates.x - config.step,
+            y = self.coordinates.y + config.step,
+        }
     end
 
     return monster

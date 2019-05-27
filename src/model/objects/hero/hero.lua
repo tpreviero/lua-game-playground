@@ -4,13 +4,14 @@ local _M = {
     step = 10
 }
 
-function _M.create(name)
+function _M.create(name, coordinates)
     local hero = {
+        type = "hero",
         name = name,
         color = {
             math.random(), math.random(), math.random()
         },
-        coordinates = {
+        coordinates = coordinates or {
             x = 0,
             y = 0,
         },
