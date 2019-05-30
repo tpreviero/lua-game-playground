@@ -3,7 +3,7 @@ local config = require("config")
 return {
     draw = function(game)
         if game.isLost then
-            love.graphics.print("Loser!", 235, 235)
+            love.graphics.print("Loser!", config.gameHeight/2, config.gameWidth/2)
         elseif game.isWon then
             love.graphics.print("You won!", 235, 235)
         else
