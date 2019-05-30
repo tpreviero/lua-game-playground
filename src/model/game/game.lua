@@ -82,8 +82,23 @@ function _M.create(height, width, objects)
         monster.type = "coin"
     end
 
+    function game.findClosest(self, heroes, monster)
+        local result = {
+            distance = math.sqrt((heroes[1].coordinates.x - monster.coordinates.x) ^ 2 + (heroes[1].coordinates.y - monster.coordinates.y) ^ 2),
+            hero = heroes[1]
+        }
+        for _, hero in pairs(heroes) do
+            local distance = math.sqrt((hero.coordinates.x - monster.coordinates.x) ^ 2 + (hero.coordinates.y - monster.coordinates.y) ^ 2)
+            if distance < result.distance then
+                result.distance = distance
+                result.hero = hero
+            end
+        end
+        return result.hero
+    end
+
     function game.moveMonsters(self)
-        local hero = self:find("hero")[1] -- get the first hero for the moment
+        local heroes = self:find("hero")
         local monsters = self:find("monster")
 
         if #monsters == 0 then
@@ -91,6 +106,7 @@ function _M.create(height, width, objects)
         end
 
         for _, monster in pairs(monsters) do
+            local hero = self:findClosest(heroes, monster)
             if hero.coordinates.x > monster.coordinates.x then
                 if hero.coordinates.y > monster.coordinates.y then
                     if self:isValidMove(monster, "down_right") then

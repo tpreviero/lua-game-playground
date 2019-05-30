@@ -1,3 +1,4 @@
 return {
-    step = 10,
+    step = 1,
+    drawingStep = 10,
 }
