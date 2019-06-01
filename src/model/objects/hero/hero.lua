@@ -1,8 +1,6 @@
 local movable = require("model.objects.movable")
 
-local _M = {
-    step = 10
-}
+local _M = {}
 
 function _M.create(name, coordinates)
     local hero = {

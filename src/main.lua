@@ -11,14 +11,21 @@ local config = require("config")
 
 local drawer = require("view.drawer")
 
+love.window.setTitle("MazeR")
+love.window.setMode(
+        config.gameWidth * config.drawingStep,
+        config.gameHeight * config.drawingStep, {
+            minwidth = config.gameWidth * config.drawingStep,
+            minheight = config.gameHeight * config.drawingStep })
+
 local myHero = heroes.create("My hero", {
     x = math.floor(config.gameHeight / 2) + 1,
-    y = math.floor(config.gameWidth / 2) + 1,
+    y = math.floor(config.gameWidth / 2),
 })
 
 local otherHero = heroes.create("Other hero", {
     x = (config.gameHeight / 2),
-    y = (config.gameWidth / 2) + 1,
+    y = (config.gameWidth / 2),
 })
 
 local objects = {
@@ -63,13 +70,6 @@ end
 local game = game.create(config.gameHeight, config.gameWidth, objects)
 
 local binder = require("control.binder").create(game)
-
-love.window.setTitle("MazeR")
-love.window.setMode(
-        game.width * config.drawingStep,
-        game.height * config.drawingStep, {
-            minwidth = game.width * config.drawingStep,
-            minheight = game.height * config.drawingStep })
 
 binder.bind({
     up = { myHero, "up" },

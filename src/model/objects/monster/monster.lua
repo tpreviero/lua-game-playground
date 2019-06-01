@@ -5,7 +5,6 @@ local _M = {
     color = {
         math.random(), math.random(), math.random()
     },
-    step = 10,
 }
 
 function _M.create(coordinates)
