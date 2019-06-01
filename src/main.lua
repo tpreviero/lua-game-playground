@@ -12,74 +12,45 @@ local config = require("config")
 local drawer = require("view.drawer")
 
 local myHero = heroes.create("My hero", {
-    x = (config.gameHeight / 2) + 1,
-    y = (config.gameWidth / 2)+1,
+    x = math.floor(config.gameHeight / 2) + 1,
+    y = math.floor(config.gameWidth / 2) + 1,
 })
 
 local otherHero = heroes.create("Other hero", {
     x = (config.gameHeight / 2),
-    y = (config.gameWidth / 2)+1,
+    y = (config.gameWidth / 2) + 1,
 })
 
 local objects = {
     myHero,
     otherHero,
-    monsters.create({
-        x = (config.gameHeight / 4)*1,
-        y = 0,
-    }),
-    monsters.create({
-        x = (config.gameHeight / 4)*2,
-        y = 0,
-    }),
-    monsters.create({
-        x = (config.gameHeight / 4)*3,
-        y = 0,
-    }),
-    monsters.create({
-        x = 0,
-        y = (config.gameWidth / 4)*1,
-    }),
-    monsters.create({
-        x = 0,
-        y = (config.gameWidth / 4)*2,
-    }),
-    monsters.create({
-        x = 0,
-        y = (config.gameWidth / 4)*3,
-    }),
-
-    monsters.create({
-        x = config.gameHeight-1,
-        y = (config.gameWidth / 4)*1,
-    }),
-    monsters.create({
-        x = config.gameHeight-1,
-        y = (config.gameWidth / 4)*2,
-    }),
-    monsters.create({
-        x = config.gameHeight-1,
-        y = (config.gameWidth / 4)*3,
-    }),
-
-    monsters.create({
-        x = (config.gameHeight / 4)*1,
-        y = config.gameWidth-1,
-    }),
-    monsters.create({
-        x = (config.gameHeight / 4)*2,
-        y = config.gameWidth-1,
-    }),
-    monsters.create({
-        x = (config.gameHeight / 4)*3,
-        y = config.gameWidth-1,
-    }),
 }
 
-for i = 0, (config.gameHeight / 2)+1 do
+for i = 0, config.monsterNumber do
+    local x = 0
+    local y = 0
+    local edge = math.floor(math.random(1, 4))
+    if edge == 1 then
+        x = math.floor(math.random(config.gameHeight))
+    elseif edge == 2 then
+        y = math.floor(math.random(config.gameWidth))
+    elseif edge == 3 then
+        x = config.gameHeight - 1
+        y = math.floor(math.random(config.gameWidth))
+    elseif edge == 4 then
+        x = math.floor(math.random(config.gameHeight))
+        y = config.gameWidth - 1
+    end
+    table.insert(objects, monsters.create({
+        x = x,
+        y = y,
+    }))
+end
+
+for i = 0, (config.gameHeight / 2) + 1 do
     for j = 0, config.gameWidth / 2 do
-        local x = config.gameHeight / 2 / 2 + i
-        local y = config.gameWidth / 2 / 2 + j
+        local x = math.floor(config.gameHeight / 2 / 2) + i
+        local y = math.floor(config.gameWidth / 2 / 2) + j
         if (x ~= myHero.coordinates.x and x ~= otherHero.coordinates.x) or y ~= myHero.coordinates.y then
             table.insert(objects, walls.create({
                 x = x,
@@ -95,10 +66,10 @@ local binder = require("control.binder").create(game)
 
 love.window.setTitle("MazeR")
 love.window.setMode(
-        game.width * 10,
-        game.height * 10, {
-            minwidth = game.width * 10,
-            minheight = game.height * 10 })
+        game.width * config.drawingStep,
+        game.height * config.drawingStep, {
+            minwidth = game.width * config.drawingStep,
+            minheight = game.height * config.drawingStep })
 
 binder.bind({
     up = { myHero, "up" },

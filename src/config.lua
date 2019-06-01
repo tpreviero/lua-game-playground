@@ -1,6 +1,7 @@
 return {
-    gameHeight = 60,
-    gameWidth = 60,
+    gameHeight = 30,
+    gameWidth = 30,
     step = 1,
-    drawingStep = 10,
+    drawingStep = 20,
+    monsterNumber = 15
 }
