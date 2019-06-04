@@ -33,7 +33,7 @@ local objects = {
     otherHero,
 }
 
-for i = 0, config.monsterNumber do
+for i = 1, config.monsterNumber do
     local x = 0
     local y = 0
     local edge = math.floor(math.random(1, 4))

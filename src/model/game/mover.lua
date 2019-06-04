@@ -1,3 +1,5 @@
+local config = require("config")
+
 local _M = {}
 
 function nextCoordinates(object, moves)
@@ -19,7 +21,7 @@ function _M.create(game)
         if nextCoordinates.x >= 0 and nextCoordinates.x < game.width then
             if nextCoordinates.y >= 0 and nextCoordinates.y < game.height then
                 local objectAtNextCoordinates = game:objectAt(nextCoordinates)
-                if objectAtNextCoordinates == nil then
+                if objectAtNextCoordinates == nil or objectAtNextCoordinates.type == "coin" then
                     return true
                 end
                 if objectAtNextCoordinates.type ~= "monster" and mover.can(objectAtNextCoordinates, moves) then
@@ -81,6 +83,9 @@ function _M.create(game)
         if objectAtNextCoordinates ~= nil then
             if (object.type == "monster" and objectAtNextCoordinates.type == "hero") or (object.type == "hero" and objectAtNextCoordinates.type == "monster") then
                 game:lost()
+            elseif object.type == "hero" and objectAtNextCoordinates.type == "coin" then
+                object.points = object.points + config.coinValue
+                game:removeObjectAt(nextCoordinates)
             else
                 mover.move(objectAtNextCoordinates, moves)
             end

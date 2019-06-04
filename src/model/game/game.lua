@@ -53,6 +53,14 @@ function _M.create(height, width, objects)
         return result
     end
 
+    function game.removeObjectAt(self, coordinates)
+        for i, object in pairs(self.objects) do
+            if object.coordinates.x == coordinates.x and object.coordinates.y == coordinates.y then
+                table.remove(self.objects, i)
+            end
+        end
+    end
+
     function game.lost(self)
         self.isLost = true
     end
