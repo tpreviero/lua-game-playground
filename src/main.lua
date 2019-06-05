@@ -33,7 +33,7 @@ local objects = {
     otherHero,
 }
 
-for i = 0, config.monsterNumber do
+for i = 1, config.monsterNumber do
     local x = 0
     local y = 0
     local edge = math.floor(math.random(1, 4))
@@ -95,12 +95,11 @@ function love.keypressed(key, scancode, isrepeat)
 end
 
 local timer = 0
-local speed = 2
 function love.update(dt)
     if timer > 1 then
         timer = timer - 1
         game:moveMonsters()
     end
-    timer = timer + dt * speed
+    timer = timer + dt * config.speed
 end
 

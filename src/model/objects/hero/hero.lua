@@ -13,6 +13,7 @@ function _M.create(name, coordinates)
             x = 0,
             y = 0,
         },
+        points = 0,
     }
 
     return movable.makeMovable(hero)
