@@ -38,15 +38,15 @@ for i = 1, config.monsterNumber do
     local y = 0
     local edge = math.floor(math.random(1, 4))
     if edge == 1 then
-        x = math.floor(math.random(config.gameHeight))
+        x = math.floor(math.random(config.gameWidth))
     elseif edge == 2 then
-        y = math.floor(math.random(config.gameWidth))
+        y = math.floor(math.random(config.gameHeight))
     elseif edge == 3 then
-        x = config.gameHeight - 1
-        y = math.floor(math.random(config.gameWidth))
+        x = config.gameWidth - 1
+        y = math.floor(math.random(config.gameHeight))
     elseif edge == 4 then
-        x = math.floor(math.random(config.gameHeight))
-        y = config.gameWidth - 1
+        x = math.floor(math.random(config.gameWidth))
+        y = config.gameHeight - 1
     end
     table.insert(objects, monsters.create({
         x = x,
