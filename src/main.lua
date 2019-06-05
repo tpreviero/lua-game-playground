@@ -19,13 +19,13 @@ love.window.setMode(
             minheight = config.gameHeight * config.drawingStep })
 
 local myHero = heroes.create("My hero", {
-    x = math.floor(config.gameHeight / 2) + 1,
+    x = math.floor(config.gameHeight / 2),
     y = math.floor(config.gameWidth / 2),
 })
 
 local otherHero = heroes.create("Other hero", {
-    x = (config.gameHeight / 2),
-    y = (config.gameWidth / 2),
+    x = math.floor(config.gameHeight / 2) - 1,
+    y = math.floor(config.gameWidth / 2),
 })
 
 local objects = {
@@ -54,10 +54,10 @@ for i = 0, config.monsterNumber do
     }))
 end
 
-for i = 0, (config.gameHeight / 2) + 1 do
-    for j = 0, config.gameWidth / 2 do
-        local x = math.floor(config.gameHeight / 2 / 2) + i
-        local y = math.floor(config.gameWidth / 2 / 2) + j
+for i = config.frameThickness, config.gameWidth - config.frameThickness - 1 do
+    for j = config.frameThickness, config.gameHeight - config.frameThickness - 1 do
+        local x = i
+        local y = j
         if (x ~= myHero.coordinates.x and x ~= otherHero.coordinates.x) or y ~= myHero.coordinates.y then
             table.insert(objects, walls.create({
                 x = x,
